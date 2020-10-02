@@ -1,0 +1,4 @@
+gs**/discovery.json
+**/journal.json
+**/chaostoolkit.log
+.ipynb_checkpoints/

@@ -1,0 +1,34 @@
+{
+  "title": "Do we remain available in face of pod going down?",
+  "description": "We expect Kubernetes to handle the situation gracefully when a pod goes down",
+  "tags": ["kubernetes"],
+  "steady-state-hypothesis": {
+    "title": "Application is normal",
+    "probes": [
+        {
+            "type": "probe",
+            "name": "application-must-respond-normally",
+            "tolerance": 200,
+            "provider": {
+                "type": "http",
+                "url": "http://127.0.0.1:55982/",
+                "timeout": 3
+            }
+        }
+    ]
+},
+  "method": [
+    {
+      "type": "action",
+      "name": "terminate-pod",
+      "provider": {
+          "type": "python",
+          "module": "chaosk8s.pod.actions",
+          "func": "terminate_pods"
+      } ,
+      "pauses": {
+          "after": 3
+      }
+  }
+  ]
+}
